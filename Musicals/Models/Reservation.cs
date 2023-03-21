@@ -7,4 +7,6 @@ public class Reservation
     public int Tickets { get; set; }
     
     public int Id { get; set; }
+
+    public DateTime ValidUntil { get; set; }
 }

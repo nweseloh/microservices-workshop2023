@@ -1,3 +1,4 @@
+using Musicals;
 using Musicals.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,10 @@ builder.Services.AddAuthentication();
 //builder.Services.AddScoped<IShowsRepository, ShowsRepository>();
 builder.Services.AddSingleton<IShowsRepository, ShowsRepository>();
 builder.Services.AddSingleton<IReservationRepository, ReservationRepository>();
+  
+builder.Services.AddOptions<ReservationOptions>().BindConfiguration("Reservation");
+//builder.Services.AddSingleton(new ReservationOptions() { DurationMinutes = 5 });
+
 
 var app = builder.Build();
 
