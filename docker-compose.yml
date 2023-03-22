@@ -8,3 +8,17 @@ services:
     build:
       context: .
       dockerfile: Musicals/Dockerfile
+
+  ui:
+    image: ${DOCKER_REGISTRY-}ui
+    build:
+      context: .
+      dockerfile: UI/Dockerfile
+
+
+  payments:
+    image: ${DOCKER_REGISTRY-}payments
+    build:
+      context: .
+      dockerfile: Payments/Dockerfile
+

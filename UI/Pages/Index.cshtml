@@ -1,0 +1,17 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Upcoming shows:</h1>
+
+
+    @foreach (string show in Model.Shows)
+    {
+        <p>
+        @show
+        </p>
+    }
+</div>

@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Musicals", "Musicals\Musica
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F09F9904-5491-4D5E-B460-993F3B8C45F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments", "Payments\Payments.csproj", "{B517EEF0-941F-489C-8722-B38C609DABA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{494D5FA1-EC6A-43E3-8F3E-8FDD559CE94F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{F09F9904-5491-4D5E-B460-993F3B8C45F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F09F9904-5491-4D5E-B460-993F3B8C45F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F09F9904-5491-4D5E-B460-993F3B8C45F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B517EEF0-941F-489C-8722-B38C609DABA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B517EEF0-941F-489C-8722-B38C609DABA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B517EEF0-941F-489C-8722-B38C609DABA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B517EEF0-941F-489C-8722-B38C609DABA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{494D5FA1-EC6A-43E3-8F3E-8FDD559CE94F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{494D5FA1-EC6A-43E3-8F3E-8FDD559CE94F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{494D5FA1-EC6A-43E3-8F3E-8FDD559CE94F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{494D5FA1-EC6A-43E3-8F3E-8FDD559CE94F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
