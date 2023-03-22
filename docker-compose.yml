@@ -2,8 +2,8 @@ version: '3.4'
 
 services:
   musicals:
-    deploy:
-      replicas: 2
+    #deploy:
+    #  replicas: 2
     image: ${DOCKER_REGISTRY-}musicals
     build:
       context: .
