@@ -12,10 +12,10 @@ COPY ["Musicals/Musicals.csproj", "Musicals/"]
 RUN dotnet restore "Musicals/Musicals.csproj"
 COPY . .
 WORKDIR "/src/Musicals"
-RUN dotnet build "Musicals.csproj" -c Release -o /app/build
+RUN dotnet build "Musicals.csproj" -c Debug-o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Musicals.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Musicals.csproj" -c Debug-o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

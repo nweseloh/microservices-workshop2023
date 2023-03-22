@@ -8,15 +8,15 @@ namespace Musicals.Controllers
     [Route("api/[controller]")] // https://localhost:1234/api/Shows
     public class ShowsController : ControllerBase
     {
-        private readonly IShowsRepository _showsRepository;
+        private readonly IRepository<Show> _showsRepository;
 
-        public ShowsController(IShowsRepository showsRepository)
+        public ShowsController(IRepository<Show> showsRepository)
         {
             _showsRepository = showsRepository;
         }
 
-        [HttpGet]
-        public List<Show> Get()
+        [HttpGet(Name="GetAll")]
+        public IEnumerable<Show> Get()
         {
             return _showsRepository.GetAll();
         }

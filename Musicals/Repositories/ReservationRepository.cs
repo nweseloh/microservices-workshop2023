@@ -1,19 +1,26 @@
-﻿using Musicals.Models;
+﻿using Musicals.Exceptions;
+using Musicals.Models;
 
 namespace Musicals.Repositories;
 
-public class ReservationRepository : IReservationRepository
+public class ReservationRepository : IRepository<Reservation>
 {
-    private readonly List<Reservation> _reservations = new List<Reservation>();
+    private int _incrementId = 1;
+    private readonly List<Reservation> _reservations = new();
 
-    public void Save(Reservation reservation)
+    public void Add(Reservation reservation)
     {
-        reservation.Id = Random.Shared.Next();
+        reservation.Id = _incrementId++;
         _reservations.Add(reservation);
+    }
+
+    public IEnumerable<Reservation> GetAll()
+    {
+        return _reservations;
     }
 
     public Reservation Get(int id)
     {
-        return _reservations.Single(x => x.Id == id);
+        return _reservations.SingleOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException();
     }
 }

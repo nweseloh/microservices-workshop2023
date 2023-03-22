@@ -1,5 +1,7 @@
 using Musicals;
+using Musicals.Models;
 using Musicals.Repositories;
+using Musicals.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,14 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options  => options.EnableAnnotations());
 builder.Services.AddAuthentication();
-//builder.Services.AddMusical();
 
 //builder.Services.AddTransient<IShowsRepository, ShowsRepository>();
-//builder.Services.AddScoped<IShowsRepository, ShowsRepository>();
-builder.Services.AddSingleton<IShowsRepository, ShowsRepository>();
-builder.Services.AddSingleton<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<IReservationUseCase, ReservationUseCase>();
+builder.Services.AddSingleton<IRepository<Show>, ShowsRepository>();
+builder.Services.AddSingleton<IRepository<Reservation>, ReservationRepository>();
   
 builder.Services.AddOptions<ReservationOptions>().BindConfiguration("Reservation");
 //builder.Services.AddSingleton(new ReservationOptions() { DurationMinutes = 5 });

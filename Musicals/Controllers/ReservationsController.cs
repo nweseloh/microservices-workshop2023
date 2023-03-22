@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+using Musicals.Exceptions;
 using Musicals.Models;
-using Musicals.Repositories;
+using Musicals.UseCases;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Musicals.Controllers
 {
@@ -9,43 +10,57 @@ namespace Musicals.Controllers
     [Route("api/[controller]")] 
     public class ReservationsController : ControllerBase
     {
-        private readonly IShowsRepository _showRepository;
-        private readonly IReservationRepository _reservationRepository;
-        private readonly ReservationOptions _options;
+        private readonly IReservationUseCase _reservationUseCase;
 
         public ReservationsController(
-            IShowsRepository showRepository, 
-            IReservationRepository reservationRepository,
-            IOptions<ReservationOptions> options
+            IReservationUseCase reservationUseCase
             )
         {
-            _showRepository = showRepository;
-            _reservationRepository = reservationRepository;
-            _options = options.Value;
+            _reservationUseCase = reservationUseCase;
         }
-        [HttpPost]
-        //[ProducesResponseType(404)]
+
+        [HttpPost(Name="CreateReservation")]
+        [SwaggerOperation(OperationId = nameof(Create))]
+        [SwaggerResponse(404, Description = "Show not found")]
+        [SwaggerResponse(400, Description = "Tickets not available")]
+        [SwaggerResponse(201, Description = "Reservation created")]
         public ActionResult<Reservation> Create(Reservation reservation)
         {
-            var show = _showRepository.Get(reservation.ShowId);
-            if (show == null)
-                return base.NotFound();
+            try
+            {
+                _reservationUseCase.CreateReservation(reservation);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (TicketsNotAvailableException)
+            {
+                return BadRequest();
+            }
 
-            if (show.AvailableTickets - reservation.Tickets < 0 )
-                return base.BadRequest();
+            return Created(nameof(Get), reservation);
+        }
 
-            reservation.ValidUntil
-                = DateTime.UtcNow.Add(TimeSpan.FromMinutes(_options.DurationMinutes));
-
-            _reservationRepository.Save(reservation);
-
-            return Ok(reservation);
+        [HttpGet]
+        [SwaggerOperation(OperationId = nameof(GetAll))]
+        public IEnumerable<Reservation> GetAll()
+        {
+            return _reservationUseCase.GetAll();
         }
 
         [HttpGet("{id}")]
-        public Reservation Get(int id)
+        [SwaggerOperation(OperationId = nameof(Get))]
+        public ActionResult<Reservation> Get(int id)
         {
-            return _reservationRepository.Get(id);
+            try
+            {
+                return _reservationUseCase.Get(id);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }
