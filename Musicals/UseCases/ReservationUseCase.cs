@@ -48,4 +48,11 @@ public class ReservationUseCase : IReservationUseCase
     {
         return _reservationRepository.GetAll();
     }
+
+    public void ConfirmReservation(int id)
+    {
+        var reservation = _reservationRepository.Get(id);
+
+        reservation.Status = ReservationStatus.Confirmed;
+    }
 }

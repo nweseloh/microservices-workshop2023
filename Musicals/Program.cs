@@ -22,15 +22,15 @@ builder.Services.AddSwaggerGen(options  =>
 });
 builder.Services.AddAuthentication();
 
+builder.Services.AddTransient<IReservationUseCase, ReservationUseCase>();
 
-//builder.Services.AddTransient<IShowsRepository, ShowsRepository>();
-builder.Services.AddScoped<IReservationUseCase, ReservationUseCase>();
 builder.Services.AddSingleton<IRepository<Show>, ShowsRepository>();
 builder.Services.AddSingleton<IRepository<Reservation>, ReservationRepository>();
-  
-builder.Services.AddOptions<ReservationOptions>().BindConfiguration("Reservation");
-//builder.Services.AddSingleton(new ReservationOptions() { DurationMinutes = 5 });
 
+builder.Services.AddHostedService<MessageReceiverService>();
+  
+builder.Services.AddOptions<ReservationOptions>().BindConfiguration("Reservation").ValidateDataAnnotations().ValidateOnStart();
+builder.Services.AddOptions<ServiceBusOptions>().BindConfiguration("ServiceBus").ValidateDataAnnotations().ValidateOnStart();
 
 var app = builder.Build();
 
